@@ -1,7 +1,3 @@
-use super::{Displayable, Drawable};
-use rand::Rng;
-use raster::{Color, Image};
-
 #[derive(Debug, Clone, PartialEq)]
 pub struct Point {
     pub x: i32,
