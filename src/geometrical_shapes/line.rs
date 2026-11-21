@@ -79,16 +79,16 @@ mod tests {
         assert_eq!(line.b.x, 3);
         assert_eq!(line.b.y, 3);
     }
-}
-
-#[test]
-fn test_line_draw_same_coordinates() {
-    let point = Point::new(3, 3);
-    let line = Line::new(&point, &point);
-
-    let mut image = Image::blank(10, 10);
-
-    line.draw(&mut image);
-
-    assert!(matches!(image.get_pixel(3, 3), Ok(_)));
+    
+    #[test]
+    fn test_line_draw_same_coordinates() {
+        let point = Point::new(3, 3);
+        let line = Line::new(&point, &point);
+    
+        let mut image = Image::blank(10, 10);
+    
+        line.draw(&mut image);
+    
+        assert!(matches!(image.get_pixel(3, 3), Ok(_)));
+    }
 }
