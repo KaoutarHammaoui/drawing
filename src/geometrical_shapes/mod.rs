@@ -1,11 +1,14 @@
-mod point;
-mod traits;
-mod line;
-mod rectangle;
-mod triangle;
 mod circle;
+mod line;
+mod point;
+mod rectangle;
+mod traits;
+mod triangle;
 
-pub use point::Point;
-pub use traits::{Displayable,Drawable};
-pub use line::Line;
 pub use circle::Circle;
+pub use line::Line;
+pub use point::Point;
+pub use traits::{Displayable, Drawable};
+
+#[cfg(test)]
+mod tests;

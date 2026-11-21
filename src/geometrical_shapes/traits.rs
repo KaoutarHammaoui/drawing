@@ -1,9 +1,9 @@
-use raster::{Color, Image};
 use rand::Rng;
+use raster::{Color, Image};
 
 pub trait Drawable {
-    fn draw(&self, img:&mut Image);
-    fn color(&self) -> Color{
+    fn draw(&self, img: &mut Image);
+    fn color(&self) -> Color {
         let mut rng = rand::thread_rng();
         Color::rgb(
             rng.gen_range(0..=225),
