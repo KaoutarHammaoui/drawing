@@ -1,3 +1,6 @@
+use rand::Rng;
+use raster::{Color};
+
 mod circle;
 mod line;
 mod point;
@@ -12,3 +15,14 @@ pub use traits::{Displayable, Drawable};
 
 #[cfg(test)]
 mod tests;
+pub use rectangle::Rectangle;
+
+
+pub(super) fn random_color()->Color {
+    let mut rng = rand::thread_rng();
+        Color::rgb(
+            rng.gen_range(0..=225),
+            rng.gen_range(0..=225),
+            rng.gen_range(0..=225),
+        )
+}

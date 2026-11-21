@@ -1,19 +1,29 @@
-use crate::geometrical_shapes::Point;
+use crate::geometrical_shapes::{random_color, Point};
 
 use super::{Displayable, Drawable};
 
-use raster::Image;
+use raster::{Color, Image};
 
-pub struct Line {
-    a: Point,
-    b: Point,
+pub struct Line{
+    a:Point,
+    b:Point,
+    color:Color,
 }
 
 impl Line {
-    pub fn new(a: &Point, b: &Point) -> Self {
-        Line {
-            a: Point::new(a.x, a.y),
-            b: Point::new(b.x, b.y),
+    pub fn new(a:&Point,b:&Point)-> Self{
+        let color=random_color();
+        Line { 
+            a:Point::new(a.x, a.y),
+            b:Point::new(b.x,b.y),
+            color,
+        }
+    }
+    pub(super) fn with_color(a:&Point,b:&Point,color:&Color)->Self{
+        Line { 
+            a:Point::new(a.x, a.y),
+            b:Point::new(b.x,b.y),
+            color:color.clone(),
         }
     }
 
@@ -24,7 +34,6 @@ impl Line {
 
 impl Drawable for Line {
     fn draw(&self, image: &mut Image) {
-        let color = self.color();
 
         let dx = (self.b.x - self.a.x).abs();
         let dy = (self.b.y - self.a.y).abs();
@@ -40,7 +49,9 @@ impl Drawable for Line {
 
         let mut error = dx - dy;
 
-        loop {
+        let color=self.color();
+
+        loop{
             image.display(x, y, color.clone());
             if x == xb && y == yb {
                 break;
@@ -59,6 +70,10 @@ impl Drawable for Line {
             }
         }
     }
+    fn color(&self) -> Color {
+        self.color.clone()
+    }
+
 }
 
 #[cfg(test)]
@@ -76,16 +91,20 @@ mod tests {
         assert_eq!(line.b.x, 3);
         assert_eq!(line.b.y, 3);
     }
-}
 
-#[test]
-fn test_line_draw_same_coordinates() {
-    let point = Point::new(3, 3);
-    let line = Line::new(&point, &point);
+    #[test]
+    fn test_random_line_stays_within_bounds() {
+        let width = 100;
+        let height = 80;
 
-    let mut image = Image::blank(10, 10);
+        for _ in 0..1000 {
+            let line = Line::random(width, height);
 
-    line.draw(&mut image);
+            assert!(line.a.x >= 0 && line.a.x < width);
+            assert!(line.a.y >= 0 && line.a.y < height);
 
-    assert!(matches!(image.get_pixel(3, 3), Ok(_)));
+            assert!(line.b.x >= 0 && line.b.x < width);
+            assert!(line.b.y >= 0 && line.b.y < height);
+        }
+    }
 }

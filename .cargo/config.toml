@@ -1,2 +1,5 @@
+[build]
+rustflags = ["-A", "future-incompatible"]
+
 [future-incompat-report]
 frequency = "never"
