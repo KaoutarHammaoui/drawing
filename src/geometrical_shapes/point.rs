@@ -28,3 +28,30 @@ impl Drawable for Point {
         Color::rgb(255, 0, 0) // red
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn random_stays_inside_image() {
+        for _ in 0..1000 {
+            let p = Point::random(100, 50);
+            assert!(p.x >= 0 && p.x < 100);
+            assert!(p.y >= 0 && p.y < 50);
+        }
+    }
+
+    #[test]
+    fn new_keeps_values() {
+        let p = Point::new(3, 4);
+        assert_eq!((p.x, p.y), (3, 4));
+    }
+
+    #[test]
+    fn draw_sets_one_pixel() {
+        let mut image = Image::blank(10, 10);
+        Point::new(5, 5).draw(&mut image);
+        assert_eq!(image.get_pixel(5, 5).unwrap().r, 255);
+    }
+}
