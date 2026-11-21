@@ -5,9 +5,9 @@ use super::{Displayable, Drawable};
 use raster::{Color, Image};
 
 pub struct Line{
-    a:Point,
-    b:Point,
-    color:Color,
+    pub a:Point,
+    pub b:Point,
+    pub color:Color,
 }
 
 impl Line {
@@ -76,35 +76,3 @@ impl Drawable for Line {
 
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_line_same_coordinates() {
-        let point = Point::new(3, 3);
-
-        let line = Line::new(&point, &point);
-
-        assert_eq!(line.a.x, 3);
-        assert_eq!(line.a.y, 3);
-        assert_eq!(line.b.x, 3);
-        assert_eq!(line.b.y, 3);
-    }
-
-    #[test]
-    fn test_random_line_stays_within_bounds() {
-        let width = 100;
-        let height = 80;
-
-        for _ in 0..1000 {
-            let line = Line::random(width, height);
-
-            assert!(line.a.x >= 0 && line.a.x < width);
-            assert!(line.a.y >= 0 && line.a.y < height);
-
-            assert!(line.b.x >= 0 && line.b.x < width);
-            assert!(line.b.y >= 0 && line.b.y < height);
-        }
-    }
-}

@@ -5,9 +5,9 @@ use super::{ Drawable};
 use raster::{Color, Image};
 
 pub struct Rectangle{
-    a:Point,
-    b:Point,
-    color:Color,
+    pub a:Point,
+    pub b:Point,
+    pub color:Color,
 }
 
 impl Rectangle {
@@ -50,35 +50,3 @@ impl Drawable for Rectangle {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_rectangle_with_inverted_coordinates() {
-        let a = Point::new(150, 300);
-        let b = Point::new(50, 60);
-
-        let rectangle = Rectangle::new(&a, &b);
-
-        assert_eq!(rectangle.a.x, 50);
-        assert_eq!(rectangle.a.y, 60);
-
-        assert_eq!(rectangle.b.x, 150);
-        assert_eq!(rectangle.b.y, 300);
-    }
-
-    #[test]
-    fn test_rectangle_with_mixed_coordinates() {
-        let a = Point::new(150, 60);
-        let b = Point::new(50, 300);
-
-        let rectangle = Rectangle::new(&a, &b);
-
-        assert_eq!(rectangle.a.x, 50);
-        assert_eq!(rectangle.a.y, 60);
-
-        assert_eq!(rectangle.b.x, 150);
-        assert_eq!(rectangle.b.y, 300);
-    }
-}

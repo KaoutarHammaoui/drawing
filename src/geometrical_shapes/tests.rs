@@ -116,3 +116,65 @@ fn draw_sets_one_pixel() {
 
         assert!(drawn(&image, &blank, 3, 3));
     }
+
+//Tests for Line
+
+
+    #[test]
+    fn test_line_same_coordinates() {
+        let point = Point::new(3, 3);
+
+        let line = Line::new(&point, &point);
+
+        assert_eq!(line.a.x, 3);
+        assert_eq!(line.a.y, 3);
+        assert_eq!(line.b.x, 3);
+        assert_eq!(line.b.y, 3);
+    }
+
+    #[test]
+    fn test_random_line_stays_within_bounds() {
+        let width = 100;
+        let height = 80;
+
+        for _ in 0..1000 {
+            let line = Line::random(width, height);
+
+            assert!(line.a.x >= 0 && line.a.x < width);
+            assert!(line.a.y >= 0 && line.a.y < height);
+
+            assert!(line.b.x >= 0 && line.b.x < width);
+            assert!(line.b.y >= 0 && line.b.y < height);
+        }
+    }
+
+//Tests for rectangle
+
+    #[test]
+    fn test_rectangle_with_inverted_coordinates() {
+        let a = Point::new(150, 300);
+        let b = Point::new(50, 60);
+
+        let rectangle = Rectangle::new(&a, &b);
+
+        assert_eq!(rectangle.a.x, 50);
+        assert_eq!(rectangle.a.y, 60);
+
+        assert_eq!(rectangle.b.x, 150);
+        assert_eq!(rectangle.b.y, 300);
+    }
+
+    #[test]
+    fn test_rectangle_with_mixed_coordinates() {
+        let a = Point::new(150, 60);
+        let b = Point::new(50, 300);
+
+        let rectangle = Rectangle::new(&a, &b);
+
+        assert_eq!(rectangle.a.x, 50);
+        assert_eq!(rectangle.a.y, 60);
+
+        assert_eq!(rectangle.b.x, 150);
+        assert_eq!(rectangle.b.y, 300);
+    }
+
