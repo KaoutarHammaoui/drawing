@@ -74,3 +74,45 @@ fn draw_sets_one_pixel() {
         Point::new(5, 5).draw(&mut image);
         assert_eq!(image.get_pixel(5, 5).unwrap().r, 255);
     }
+
+//Test for Triangle
+
+ fn drawn(image: &Image, blank: &Image, x: i32, y: i32) -> bool {
+        let p = image.get_pixel(x, y).unwrap();
+        let b = blank.get_pixel(x, y).unwrap();
+
+        (p.r, p.g, p.b) != (b.r, b.g, b.b)
+    }
+
+    #[test]
+    fn draws_its_corners() {
+        let blank = Image::blank(10, 10);
+        let mut image = Image::blank(10, 10);
+        Triangle::new(&Point::new(1, 1), &Point::new(8, 1), &Point::new(4, 8)).draw(&mut image);
+
+        for (x, y) in [(1, 1), (8, 1), (4, 8)] {
+            assert!(drawn(&image, &blank, x, y));
+        }
+    }
+
+    #[test]
+    fn reverse_order_still_works() {
+        // same triangle, points given in reverse order
+        let blank = Image::blank(10, 10);
+        let mut image = Image::blank(10, 10);
+        Triangle::new(&Point::new(4, 8), &Point::new(8, 1), &Point::new(1, 1)).draw(&mut image);
+
+        for (x, y) in [(1, 1), (8, 1), (4, 8)] {
+            assert!(drawn(&image, &blank, x, y));
+        }
+    }
+
+    #[test]
+    fn same_coordinates_draws_one_pixel() {
+        let p = Point::new(3, 3);
+        let blank = Image::blank(10, 10);
+        let mut image = Image::blank(10, 10);
+        Triangle::new(&p, &p, &p).draw(&mut image);
+
+        assert!(drawn(&image, &blank, 3, 3));
+    }
