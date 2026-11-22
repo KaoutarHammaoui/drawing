@@ -24,21 +24,13 @@ impl Rectangle {
         }
     }
 }
-
 impl Drawable for Rectangle {
     fn draw(&self, image: &mut Image) {
-        let c = &Point {
-            x: self.b.x,
-            y: self.a.y,
-        }; //top-right
-        let d = &Point {
-            x: self.a.x,
-            y: self.b.y,
-        }; // bottom-left
+        let c = &Point::new(self.b.x, self.a.y); // top-right
+        let d = &Point::new(self.a.x, self.b.y); // bottom-left
         let color = &self.color;
 
         let top = Line::with_color(&self.a, c, color);
-
         let bottom = Line::with_color(d, &self.b, color);
         let left = Line::with_color(&self.a, d, color);
         let right = Line::with_color(c, &self.b, color);

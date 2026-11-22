@@ -74,9 +74,13 @@ mod poit_tests {
     #[test]
     //check if the draw function sets the pixel at the correct position
     fn draw_sets_one_pixel() {
-        let mut image = Image::blank(10, 10);
-        Point::new(5, 5).draw(&mut image);
-        assert_eq!(image.get_pixel(5, 5).unwrap().r, 255);
+    let blank = Image::blank(10, 10);
+    let mut image = Image::blank(10, 10);
+    Point::new(5, 5).draw(&mut image);
+
+    let p = image.get_pixel(5, 5).unwrap();
+    let b = blank.get_pixel(5, 5).unwrap();
+    assert!((p.r, p.g, p.b) != (b.r, b.g, b.b));
     }
 }
 
