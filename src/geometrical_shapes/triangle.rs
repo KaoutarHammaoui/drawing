@@ -27,15 +27,9 @@ impl Drawable for Triangle {
     fn draw(&self, image: &mut Image) {
         let color = &self.color;
 
-        // Mirror negative coordinates so the triangle stays inside the image,
-        
-        let a = Point::new(self.a.x.abs(), self.a.y.abs());
-        let b = Point::new(self.b.x.abs(), self.b.y.abs());
-        let c = Point::new(self.c.x.abs(), self.c.y.abs());
-
-        Line::with_color(&a, &b, color).draw(image);
-        Line::with_color(&b, &c, color).draw(image);
-        Line::with_color(&c, &a, color).draw(image);
+        Line::with_color(&self.a, &self.b, color).draw(image);
+        Line::with_color(&self.b, &self.c, color).draw(image);
+        Line::with_color(&self.c, &self.a, color).draw(image);
     }
 
     fn color(&self) -> Color {
