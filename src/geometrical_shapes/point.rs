@@ -1,16 +1,18 @@
-use super::{Displayable, Drawable};
+
+use super::{Displayable, Drawable, random_color};
 use rand::Rng;
 use raster::{Color, Image};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
+    color: Color,
 }
-// Implement the Displayable trait for Image.
+
 impl Point {
     pub fn new(x: i32, y: i32) -> Self {
-        Point { x, y }
+        Point { x, y, color: random_color() }
     }
 
     // A random point inside the image.
@@ -19,7 +21,6 @@ impl Point {
         Point::new(rng.gen_range(0..width), rng.gen_range(0..height))
     }
 }
-
 // Implement the Drawable trait for Point.
 impl Drawable for Point {
     fn draw(&self, image: &mut Image) {
@@ -27,6 +28,6 @@ impl Drawable for Point {
     }
 
     fn color(&self) -> Color {
-        Color::rgb(255, 0, 0) // red
+        self.color.clone()
     }
 }
