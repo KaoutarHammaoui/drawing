@@ -23,7 +23,7 @@ impl Circle {
     pub fn random(w: i32, h: i32) -> Self {
         let mut rng = rand::thread_rng();
         let center = Point::random(w, h);
-        let raduis = rng.gen_range(20..=550);
+        let raduis = rng.gen_range(10..=500);
         Self::new(&center, raduis)
     }
 }
