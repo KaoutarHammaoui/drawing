@@ -24,7 +24,7 @@ mod circle_tests {
 
             assert!(circle.center.x >= 0 && circle.center.x < 100);
             assert!(circle.center.y >= 0 && circle.center.y < 100);
-            assert!(circle.raduis >= 20 && circle.raduis <= 550);
+            assert!(circle.raduis >= 10 && circle.raduis <= 500);
         }
     }
 
