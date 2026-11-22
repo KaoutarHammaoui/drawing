@@ -12,7 +12,8 @@ pub struct Point {
 
 impl Point {
     pub fn new(x: i32, y: i32) -> Self {
-        Point { x, y, color: random_color() }
+        
+        Point { x:x.abs(), y:y.abs(), color: random_color() }
     }
 
     // A random point inside the image.
