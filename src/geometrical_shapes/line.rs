@@ -1,29 +1,29 @@
-use crate::geometrical_shapes::{random_color, Point};
+use crate::geometrical_shapes::{Point, random_color};
 
 use super::{Displayable, Drawable};
 
 use raster::{Color, Image};
 
-pub struct Line{
-    pub a:Point,
-    pub b:Point,
-    pub color:Color,
+pub struct Line {
+    pub a: Point,
+    pub b: Point,
+    pub color: Color,
 }
 
 impl Line {
-    pub fn new(a:&Point,b:&Point)-> Self{
-        let color=random_color();
-        Line { 
-            a:Point::new(a.x, a.y),
-            b:Point::new(b.x,b.y),
+    pub fn new(a: &Point, b: &Point) -> Self {
+        let color = random_color();
+        Line {
+            a: Point::new(a.x, a.y),
+            b: Point::new(b.x, b.y),
             color,
         }
     }
-    pub(super) fn with_color(a:&Point,b:&Point,color:&Color)->Self{
-        Line { 
-            a:Point::new(a.x, a.y),
-            b:Point::new(b.x,b.y),
-            color:color.clone(),
+    pub(super) fn with_color(a: &Point, b: &Point, color: &Color) -> Self {
+        Line {
+            a: Point::new(a.x, a.y),
+            b: Point::new(b.x, b.y),
+            color: color.clone(),
         }
     }
 
@@ -34,7 +34,6 @@ impl Line {
 
 impl Drawable for Line {
     fn draw(&self, image: &mut Image) {
-
         let dx = (self.b.x - self.a.x).abs();
         let dy = (self.b.y - self.a.y).abs();
 
@@ -49,9 +48,9 @@ impl Drawable for Line {
 
         let mut error = dx - dy;
 
-        let color=self.color();
+        let color = self.color();
 
-        loop{
+        loop {
             image.display(x, y, color.clone());
             if x == xb && y == yb {
                 break;
@@ -73,6 +72,4 @@ impl Drawable for Line {
     fn color(&self) -> Color {
         self.color.clone()
     }
-
 }
-

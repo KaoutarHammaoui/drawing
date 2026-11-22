@@ -2,7 +2,7 @@ use raster::{Color, Image};
 
 // Anything that can be drawn on an image.
 pub trait Drawable {
-    fn draw(&self, img:&mut Image);
+    fn draw(&self, img: &mut Image);
     fn color(&self) -> Color;
 }
 

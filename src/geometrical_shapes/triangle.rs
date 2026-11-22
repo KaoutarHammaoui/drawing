@@ -1,7 +1,7 @@
 use crate::geometrical_shapes::random_color;
 
 use super::{Drawable, Line, Point};
-use raster::{Image,Color};
+use raster::{Color, Image};
 
 #[derive(Debug, Clone)]
 pub struct Triangle {
@@ -13,7 +13,7 @@ pub struct Triangle {
 
 impl Triangle {
     pub fn new(a: &Point, b: &Point, c: &Point) -> Self {
-        let color=random_color();
+        let color = random_color();
         Triangle {
             a: a.clone(),
             b: b.clone(),
@@ -25,11 +25,11 @@ impl Triangle {
 
 impl Drawable for Triangle {
     fn draw(&self, image: &mut Image) {
-        let color=&self.color;
+        let color = &self.color;
 
-        Line::with_color(&self.a, &self.b,color).draw(image);
-        Line::with_color(&self.b, &self.c,color).draw(image);
-        Line::with_color(&self.c, &self.a,color).draw(image);
+        Line::with_color(&self.a, &self.b, color).draw(image);
+        Line::with_color(&self.b, &self.c, color).draw(image);
+        Line::with_color(&self.c, &self.a, color).draw(image);
     }
 
     fn color(&self) -> Color {

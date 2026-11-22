@@ -2,7 +2,7 @@ use crate::geometrical_shapes::random_color;
 
 use super::{Displayable, Drawable, Point};
 use rand::Rng;
-use raster::{Image,Color};
+use raster::{Color, Image};
 
 pub struct Circle {
     pub(super) center: Point,
@@ -12,7 +12,7 @@ pub struct Circle {
 
 impl Circle {
     pub fn new(center: &Point, raduis: i32) -> Self {
-        let color=random_color();
+        let color = random_color();
         Self {
             center: center.clone(),
             raduis,
