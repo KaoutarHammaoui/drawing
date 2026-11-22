@@ -11,9 +11,9 @@ mod triangle;
 pub use circle::Circle;
 pub use line::Line;
 pub use point::Point;
+pub use rectangle::Rectangle;
 pub use traits::{Displayable, Drawable};
 pub use triangle::Triangle;
-pub use rectangle::Rectangle;
 
 #[cfg(test)]
 mod tests;

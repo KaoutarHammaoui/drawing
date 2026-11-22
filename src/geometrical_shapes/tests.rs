@@ -24,7 +24,7 @@ mod circle_tests {
 
             assert!(circle.center.x >= 0 && circle.center.x < 100);
             assert!(circle.center.y >= 0 && circle.center.y < 100);
-            assert!(circle.raduis >= 10 && circle.raduis <= 500);
+            assert!(circle.radius >= 10 && circle.radius <= 500);
         }
     }
 
@@ -51,7 +51,7 @@ mod circle_tests {
 
 //Test for Point
 
-mod poit_tests {
+mod point_tests {
     use super::*;
 
     //tell rust that this is a test function
@@ -74,13 +74,13 @@ mod poit_tests {
     #[test]
     //check if the draw function sets the pixel at the correct position
     fn draw_sets_one_pixel() {
-    let blank = Image::blank(10, 10);
-    let mut image = Image::blank(10, 10);
-    Point::new(5, 5).draw(&mut image);
+        let blank = Image::blank(10, 10);
+        let mut image = Image::blank(10, 10);
+        Point::new(5, 5).draw(&mut image);
 
-    let p = image.get_pixel(5, 5).unwrap();
-    let b = blank.get_pixel(5, 5).unwrap();
-    assert!((p.r, p.g, p.b) != (b.r, b.g, b.b));
+        let p = image.get_pixel(5, 5).unwrap();
+        let b = blank.get_pixel(5, 5).unwrap();
+        assert!((p.r, p.g, p.b) != (b.r, b.g, b.b));
     }
 }
 
@@ -145,6 +145,24 @@ mod line_tests {
         assert_eq!(line.a.y, 3);
         assert_eq!(line.b.x, 3);
         assert_eq!(line.b.y, 3);
+    }
+    #[test]
+    fn test_line_same_coordinates_in_a_loop() {
+        for _ in 0..100 {
+            
+            let mut image = Image::blank(10, 10);
+            
+            let point = Point::random(10, 10);
+            let line = Line::new(&point, &point);
+            line.draw(&mut image);
+            
+            let pixel = image.get_pixel(point.x, point.y).unwrap();
+            let expected = line.color();
+            assert_eq!(
+                (pixel.r, pixel.g, pixel.b),
+                (expected.r, expected.g, expected.b)
+            );
+        }
     }
 
     #[test]

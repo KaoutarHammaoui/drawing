@@ -6,16 +6,16 @@ use raster::{Color, Image};
 
 pub struct Circle {
     pub(super) center: Point,
-    pub(super) raduis: i32,
+    pub(super) radius: i32,
     color: Color,
 }
 
 impl Circle {
-    pub fn new(center: &Point, raduis: i32) -> Self {
+    pub fn new(center: &Point, radius: i32) -> Self {
         let color = random_color();
         Self {
             center: center.clone(),
-            raduis,
+            radius,
             color,
         }
     }
@@ -23,8 +23,8 @@ impl Circle {
     pub fn random(w: i32, h: i32) -> Self {
         let mut rng = rand::thread_rng();
         let center = Point::random(w, h);
-        let raduis = rng.gen_range(10..=500);
-        Self::new(&center, raduis)
+        let radius = rng.gen_range(10..=500);
+        Self::new(&center, radius)
     }
 }
 
@@ -32,8 +32,8 @@ impl Drawable for Circle {
     fn draw(&self, image: &mut Image) {
         let color = self.color();
         let (cx, cy) = (self.center.x, self.center.y);
-        let (mut x, mut y) = (0, self.raduis);
-        let mut p = 1 - self.raduis;
+        let (mut x, mut y) = (0, self.radius);
+        let mut p = 1 - self.radius;
 
         while x <= y {
             for (dx, dy) in [
