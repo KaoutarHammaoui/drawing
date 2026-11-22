@@ -106,7 +106,6 @@ mod triangle_tests {
             assert!(drawn(&image, &blank, x, y));
         }
     }
-
     #[test]
     fn reverse_order_still_works() {
         // same triangle, points given in reverse order
@@ -117,6 +116,15 @@ mod triangle_tests {
         for (x, y) in [(1, 1), (8, 1), (4, 8)] {
             assert!(drawn(&image, &blank, x, y));
         }
+    }
+
+    #[test]
+    fn negative_coordinates_stay_inside_image() {
+    let blank = Image::blank(10, 10);
+    let mut image = Image::blank(10, 10);
+    Triangle::new(&Point::new(-1, 1), &Point::new(8, 1), &Point::new(4, 8)).draw(&mut image);
+
+    assert!(drawn(&image, &blank, 1, 1));
     }
 
     #[test]
